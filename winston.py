@@ -1,9 +1,21 @@
-
+# O(n) runtime
 from segno import helpers 
-from PyPDF2 import PdfReader
+from PyPDF2 import PdfReader #For reading pdf-may be useful later
 from openpyxl import load_workbook
+import xlwt #pip install xlsxwriter, xlrd, xlwt, xlutils
+from xlwt import Workbook
+import openpyxl 
+from openpyxl import load_workbook
+from openpyxl.drawing.image import Image
 
-data_file = 'Business Card Order #42.xlsx'
+#xlrd, xlutils and xlwt modules need to be installed.  
+#Can be done via pip install <module>
+wrkb = openpyxl.Workbook()
+
+
+
+#File should be read in through the program. Drag and drop in? Maybe user can select which excel file to input?
+data_file = 'Business Card Order #42.xlsx'  
 
 # Load the entire workbook.
 wb = load_workbook(data_file, data_only=True)
@@ -21,18 +33,26 @@ for sheetname in wb.sheetnames:
 #     print(cell.value)
 i=0
 tempforfile=""
-for row in all_rows[1:]:
+for row in all_rows[1:]: #every row
     rowinfo=[]
     i+=1
-    for cell in all_rows[i]:
+    for cell in all_rows[i]:  #every cell in row
         rowinfo.append(cell.value)
     print(rowinfo)
     qrcode = helpers.make_vcard(rowinfo[0][rowinfo[0].find(" "):] + ";"+rowinfo[0].split()[0], displayname=rowinfo[0], org="NYCDDC: "+rowinfo[3], url="nyc.gov/ddc",
                               email=rowinfo[7], street = "30-30 Thompson Ave.", city="Long Island City", region="NY", zipcode = "11101",
-                               workphone=rowinfo[5].replace("-",""), cellphone = rowinfo[6].replace("-",""), title=rowinfo[2])
+                               workphone=rowinfo[5].replace("-",""), cellphone = rowinfo[6].replace("-",""), title=rowinfo[2])          
     qrcode.save(rowinfo[0]+" QRCODE.png", scale=7)
-print (type(rowinfo[5]))
+    img = openpyxl.drawing.image.Image(rowinfo[0]+" QRCODE.png")
+    img.anchor = "K"+str(i+1)
+    img.height=50
+    img.width=50
+    ws.add_image(img)
+    wb.save("BBusiness Card Order #42.xlsx")
 
+
+
+# print (type(rowinfo[5]))
 
 
 # reader = PdfReader("Business Card Request.pdf")
@@ -61,4 +81,5 @@ print (type(rowinfo[5]))
 
 # f = open("C:\\Users\\tsuiwi\\Desktop\\raft.txt", "r")
 # print(f.readlines())
+
 
