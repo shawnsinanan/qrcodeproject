@@ -1,0 +1,14 @@
+Sub RunPythonScript()
+
+Dim objShell As Object
+Dim PythonExePath As String, PythonScriptPath As String
+
+
+    Set objShell = VBA.CreateObject("Wscript.Shell")
+    
+    PythonExePath = """C:\Users\Shawn\AppData\Local\Microsoft\WindowsApps\python.exe"""
+    PythonScriptPath = """C:\Users\Shawn\Desktop\work\yo.py"""
+    
+    objShell.Run PythonExePath & PythonScriptPath
+
+End Sub
