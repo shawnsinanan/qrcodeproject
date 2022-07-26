@@ -1,0 +1,41 @@
+
+
+
+
+<form action="results.html" method="get">
+    <div>
+        <label for ="name"> Name</label>
+        <input type="text" name="name" id="name" value="User" required> 
+    </div>
+    <div>
+        <label for ="email"> Email</label>
+        <input type="email" name="email" id="email" value="test@gmail.com" required> 
+    </div>
+    <div>
+        Gender
+        <div>
+          <label for="male">Male</label>
+          <input type="radio" name="gender" id="male" value="male" >
+        </div>
+        <div>
+          <label for="female">Female</label>
+          <input type="radio" name="gender" id="female" value="female">
+        </div>
+      </div>
+    <div>
+        <label for="phone">Phone</label>
+        <input type="tel" name="phone" value="12345" id="phone">
+    </div>
+
+    <div>
+        <label>
+            Password
+            <input type="password" name="password" value="testtest" required>
+        </label>
+    </div>
+
+    <button type="reset"> Reset </button>
+    <button type="submit"> Submit </button>
+
+
+</form>
